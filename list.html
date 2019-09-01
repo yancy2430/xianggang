@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,45 +14,81 @@
 
 </head>
 <style>
-    .content-block{
+    .content-block {
         background: floralwhite;
         margin: 0;
     }
-    .screen{
+
+    .screen {
         background: #ffffff;
-        padding: 10px;
-    }
-    .screen>.screen_item{
+        line-height: 2rem;
         text-align: center;
-    }
-    .list-block{
-        margin: 0rem 0;
-    }
-    .screen-block{
+        height: 2rem;
         position: relative;
     }
-    .screen-block .item-block{
+
+    .screen > .screen_item {
+        text-align: center;
+    }
+
+    .list-block {
+        margin: -1px 0 0 0;
+    }
+    .media-list{
+        padding-top: 2rem;
+
+    }
+    .screen-block {
+        position: relative;
+        height: 100%;
+    }
+
+    .screen-block .item-block {
         width: 100%;
         background: #ffffff;
         display: none;
         position: absolute;
         top: 0;
     }
-    .screen-block .item-block{
+
+    .screen-block .item-block {
         z-index: 100;
     }
 
-    .screen-block .list-block .item-content{
+    .screen-block .list-block .item-content {
         padding-left: 0;
     }
-    .screen-block .list-block .item-title{
+
+    .screen-block .list-block .item-title {
         padding-left: .75rem;
     }
-    .tab{
+
+    .tab {
         position: fixed;
-        top: 50px;
         z-index: 99;
         width: 100%;
+        height: 100%;
+    }
+
+    .tab .popup-overlay {
+        position: relative;
+        z-index: 60;
+    }
+
+    .screen:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: auto;
+        top: auto;
+        height: 1px;
+        width: 100%;
+        background-color: #e7e7e7;
+        display: block;
+        z-index: 15;
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
     }
 </style>
 <body>
@@ -65,20 +100,21 @@
             <h1 class="title">标题</h1>
         </header>
         <div class="content">
+
             <div class="tab">
                 <div class="row screen">
                     <div class="col-33 screen_item" onclick="show(0)">职位</div>
                     <div class="col-33 screen_item" onclick="show(1)">薪资</div>
                     <div class="col-33 screen_item" onclick="show(2)">排序</div>
                 </div>
+
                 <div class="screen-block">
                     <div class="item-block">
                         <div class="list-block">
                             <ul>
-                                <li class="item-content">
+                                <li class="item-content" onclick="clickMenuItem(1,'软件工程师')">
                                     <div class="item-inner">
                                         <div class="item-title">软件工程师</div>
-                                        <div class="item-after">湘潭</div>
                                     </div>
                                 </li>
                             </ul>
@@ -87,7 +123,7 @@
                     <div class="item-block">
                         <div class="list-block">
                             <ul>
-                                <li class="item-content">
+                                <li class="item-content" onclick="clickMenuItem(1,'500-1000')">
                                     <div class="item-inner">
                                         <div class="item-title">500-1000</div>
                                     </div>
@@ -95,7 +131,7 @@
                             </ul>
                             <ul>
                                 <li class="item-content">
-                                    <div class="item-inner">
+                                    <div class="item-inner" onclick="clickMenuItem(2,'1000-2000')">
                                         <div class="item-title">1000-2000</div>
                                     </div>
                                 </li>
@@ -107,17 +143,17 @@
                         <div class="list-block">
                             <ul>
                                 <li class="item-content">
-                                    <div class="item-inner">
+                                    <div class="item-inner" onclick="clickMenuItem(1,'默认排序')">
                                         <div class="item-title">默认排序</div>
                                     </div>
                                 </li>
                                 <li class="item-content">
-                                    <div class="item-inner">
+                                    <div class="item-inner" onclick="clickMenuItem(2,'时间排序')">
                                         <div class="item-title">时间排序</div>
                                     </div>
                                 </li>
                                 <li class="item-content">
-                                    <div class="item-inner">
+                                    <div class="item-inner" onclick="clickMenuItem(3,'热门排序')">
                                         <div class="item-title">热门排序</div>
                                     </div>
                                 </li>
@@ -125,6 +161,8 @@
                         </div>
 
                     </div>
+
+                    <div class="popup-overlay modal-overlay-visible" onclick="clickOverlay()"></div>
                 </div>
             </div>
             <div class="list-block media-list">
@@ -136,7 +174,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -147,7 +186,42 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li><li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">软件工程师</div>
+                                <div class="item-price">￥5000-￥10000</div>
+                            </div>
+                            <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                            </div>
+                        </div>
+                    </div>
+                </li><li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">软件工程师</div>
+                                <div class="item-price">￥5000-￥10000</div>
+                            </div>
+                            <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">软件工程师</div>
+                                    <div class="item-price">￥5000-￥10000</div>
+                                </div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -158,7 +232,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -169,7 +244,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -180,7 +256,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -191,7 +268,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -202,7 +280,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -213,7 +292,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -224,18 +304,8 @@
                                     <div class="item-title">软件工程师</div>
                                     <div class="item-price">￥5000-￥10000</div>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">软件工程师</div>
-                                    <div class="item-price">￥5000-￥10000</div>
+                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span>
                                 </div>
-                                <div class="item-subtitle"><span>湘潭</span><span style="float: right">2019-08-31</span></div>
                             </div>
                         </div>
                     </li>
@@ -254,20 +324,39 @@
         router: false
     }
     hideAll();
+    //隐藏所有
     function hideAll() {
-        $(".screen-block").find(".item-block").hide()
-
-    }
-    let i = -1;//判断选中
-    function show(id) {
-        hideAll();
-        if (i == id){
-            i=-1
-            $(".screen-block").children(".item-block").get(id).style.display='none';
-        }else {
-            i=id
-            $(".screen-block").children(".item-block").get(id).style.display='block';
+        $(".screen-block").find(".item-block").hide()//隐藏所有弹出层
+        for (let j = 0; j < $(".screen").children(".screen_item").length; j++) {//循环重置颜色
+            $(".screen").children(".screen_item").get(j).style.color = '';
         }
+        $(".modal-overlay-visible").hide()//隐藏蒙版
+    }
+
+    let i = -1;//判断选中临时变量
+
+    //显示选中的筛选条件框
+    function show(id) {
+        hideAll();//先把之前展开的全部隐藏
+        if (i == id) {//判断展开的是不是点击的那个 如果是就关闭
+            i = -1
+            $(".screen-block").children(".item-block").get(id).style.display = 'none';//关闭展开的div id为第几个
+            $(".screen").children(".screen_item").get(id).style.color = ''; //重置标题颜色
+        } else {//否则就展开新的
+            i = id
+            $(".screen-block").children(".item-block").get(id).style.display = 'block'; //设置展开的div id为第几个
+            $(".screen").children(".screen_item").get(id).style.color = '#0894ec'; //设置选中标题颜色
+            $(".modal-overlay-visible").get(0).style.display = 'block'; //显示蒙版
+        }
+    }
+    function clickMenuItem(id,name) {//点击事件的方法
+        i = -1;//重置选中
+        console.log("点击了"+id+":"+name)
+        hideAll();
+    }
+    function clickOverlay() {//点击蒙版关闭
+        hideAll();
+        i = -1;//重置选中
     }
 </script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
